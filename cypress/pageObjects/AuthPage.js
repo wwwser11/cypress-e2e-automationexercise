@@ -15,6 +15,7 @@ class AuthPage {
     signupButton = '.signup-form button'; // Button to submit the signup form
     accountCreatedMessage = 'h2[data-qa="account-created"]'; // Message displayed when account is created successfully
     continueButton = 'a[data-qa="continue-button"]'; // Button to continue after account creation
+    signupErrorExistedUser = '[action="/signup"] p'; // Error message displayed when Email Address is already exist
 
     // Login Form Locators
     loginForm = '.login-form'; // The main login form container
@@ -53,22 +54,63 @@ class AuthPage {
     deleteAccountTitle = 'h2.title'; // Title displayed when an account is deleted
 
 
+
     //Methods
 
     navigateToHome() {
         cy.visit(this.baseUrl); // Используем baseUrl
-        cy.get(this.homeLink).should('have.css', 'color', 'rgb(255, 165, 0)');
     }
 
     navigateToLogin() {
         cy.visit(`${this.baseUrl}/login`); // Используем baseUrl
-        //cy.visit('https://automationexercise.com/login')
     }
 
     fillSignupForm(name, email) {
         cy.get(this.signupNameInput).type(name);
         cy.get(this.signupEmailInput).type(email);
+    }
+
+    clickSignupButton() {
         cy.get(this.signupButton).click();
+    }
+
+
+    verifyAccountCreated() {
+        cy.get(this.accountCreatedMessage).should('be.visible').should('have.text', 'Account Created!');
+    }
+
+    verifyLoggedIn(username) {
+        cy.get(this.loggedInAsText).should('be.visible').and('contain', `Logged in as ${username}`);
+    }
+    verifyLoginForm(){
+        cy.get(this.loginForm).should('be.visible');
+    };
+
+    verifySignupErrorMsg(){
+        cy.get(this.signupErrorExistedUser).should('be.visible');
+    };
+
+    login(email, password) {
+        cy.get(this.loginEmailInput).type(email);
+        cy.get(this.loginPasswordInput).type(password);
+    }
+
+    clickLoginButton() {
+        cy.get(this.loginButton).click(); 
+    }
+
+    verifyLoginError() {
+        cy.get(this.loginErrorMessage).should('be.visible').should('have.text', 'Your email or password is incorrect!');
+    }
+
+    deleteAccount() {
+        cy.get(this.deleteAccountLink).click();
+        cy.get(this.deleteAccountTitle).should('have.text', 'Account Deleted!');
+        cy.get(this.continueButton).click();
+    }
+
+    logout() {
+        cy.get(this.logoutLink).click();
     }
 
     fillAccountInformation(password) {
@@ -92,47 +134,24 @@ class AuthPage {
         cy.get(this.cityInput).type('Los Angeles');
         cy.get(this.zipcodeInput).type('90015');
         cy.get(this.mobileNumberInput).type('8722941111');
+    }
+    clickCreateAccountBtn(){
         cy.get(this.createAccountButton).click();
-    }
-
-    verifyAccountCreated() {
-        cy.get(this.accountCreatedMessage).should('be.visible').should('have.text', 'Account Created!');
+    };
+    clickRegContinueButton(){
         cy.get(this.continueButton).click();
-    }
+    };
 
-    verifyLoggedIn(username) {
-        cy.get(this.loggedInAsText).should('be.visible').and('contain', `Logged in as ${username}`);
-    }
-
-    login(email, password) {
-        cy.get(this.loginEmailInput).type(email);
-        cy.get(this.loginPasswordInput).type(password);
-        cy.get(this.loginButton).click();
-    }
-
-    verifyLoginError() {
-        cy.get(this.loginErrorMessage).should('be.visible').should('have.text', 'Your email or password is incorrect!');
-    }
-
-    deleteAccount() {
-        cy.get(this.deleteAccountLink).click();
-        cy.get(this.deleteAccountTitle).should('have.text', 'Account Deleted!');
-        cy.get(this.continueButton).click();
-    }
-
-    logout() {
-        cy.get(this.logoutLink).click();
-        cy.get(this.loginForm).should('be.visible');
-    }
 
     registerUser(name, emai1, pass){
         this.navigateToHome();
         this.navigateToLogin();
         this.fillSignupForm(name, emai1);
+        this.clickSignupButton()
         this.fillAccountInformation(pass);
         this.fillAddressDetails();
-        this.verifyAccountCreated();
-        this.verifyLoggedIn(name);
+        this.clickCreateAccountBtn();
+        this.clickRegContinueButton();
     }
 }
 
