@@ -1,12 +1,6 @@
-class AuthPage {
-    // Base URL
-    baseUrl = 'https://automationexercise.com';
+import BasePage from './BasePage';
 
-    // Navigation Locators
-    homeLink = '.nav a[href="/"]'; // Link to the home page
-    loginLink = '.nav a[href="/login"]'; // Link to the login/signup page
-    logoutLink = '.nav a[href="/logout"]'; // Link to logout
-    deleteAccountLink = '.navbar-nav a[href="/delete_account"]'; // Link to delete account
+class AuthPage extends BasePage {
 
     // Signup Form Locators
     signupForm = '.signup-form'; // The main signup form container
@@ -56,13 +50,22 @@ class AuthPage {
 
 
     //Methods
-
     navigateToHome() {
         cy.visit(this.baseUrl); // Используем baseUrl
     }
 
     navigateToLogin() {
-        cy.visit(`${this.baseUrl}/login`); // Используем baseUrl
+        this.navigationMenu.clickSignupLogin(); 
+    }
+
+    deleteAccount() {
+        this.navigationMenu.clickDeleteAccount(); 
+        cy.get(this.deleteAccountTitle).should('have.text', 'Account Deleted!');
+        cy.get(this.continueButton).click();
+    }
+
+    logout() {
+        this.navigationMenu.clickLogout(); 
     }
 
     fillSignupForm(name, email) {
@@ -103,16 +106,6 @@ class AuthPage {
         cy.get(this.loginErrorMessage).should('be.visible').should('have.text', 'Your email or password is incorrect!');
     }
 
-    deleteAccount() {
-        cy.get(this.deleteAccountLink).click();
-        cy.get(this.deleteAccountTitle).should('have.text', 'Account Deleted!');
-        cy.get(this.continueButton).click();
-    }
-
-    logout() {
-        cy.get(this.logoutLink).click();
-    }
-
     fillAccountInformation(password) {
         cy.get(this.genderFemaleRadio).click();
         cy.get(this.passwordInput).type(password);
@@ -144,8 +137,8 @@ class AuthPage {
 
 
     registerUser(name, emai1, pass){
-        this.navigateToHome();
-        this.navigateToLogin();
+        //this.navigationMenu.clickHome();
+        this.navigationMenu.clickSignupLogin();
         this.fillSignupForm(name, emai1);
         this.clickSignupButton()
         this.fillAccountInformation(pass);
