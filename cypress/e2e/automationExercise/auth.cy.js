@@ -11,8 +11,11 @@ describe('Automation Exercise Test Cases', () => {
 
   beforeEach(function () {
     if (this.currentTest.title !== 'Test Case 1 - Register User') {
+      authPage.navigateToHome();
       authPage.registerUser(userName, email, password);
       authPage.logout();
+      authPage.navigateToHome();
+      authPage.navigationMenu.clickSignupLogin();
     }
   });
 
@@ -24,7 +27,7 @@ describe('Automation Exercise Test Cases', () => {
 
   it('Test Case 1 - Register User', () => {
     authPage.navigateToHome();
-    authPage.navigateToLogin();
+    authPage.navigationMenu.clickSignupLogin();
     authPage.fillSignupForm(userName, email);
     authPage.clickSignupButton()
     authPage.fillAccountInformation(password);
@@ -35,14 +38,11 @@ describe('Automation Exercise Test Cases', () => {
     authPage.verifyLoggedIn(userName);
   });
   it('Test Case 2 - Login User with correct email and password', () => {
-    authPage.navigateToHome();
-    authPage.navigateToLogin();
     authPage.login(email, password);
     authPage.clickLoginButton()
     authPage.verifyLoggedIn(userName);
   });
   it('Test Case 3 - Login User with incorrect email and password', () => {
-    authPage.navigateToLogin();
     authPage.login(incorrectEmail, incorrectPass);
     authPage.clickLoginButton()
     authPage.verifyLoginError();
@@ -52,7 +52,6 @@ describe('Automation Exercise Test Cases', () => {
     authPage.clickLoginButton();
   });
   it('Test Case 4 - Logout User', () => {
-    authPage.navigateToLogin();
     authPage.login(email, password);
     authPage.clickLoginButton();
     authPage.verifyLoggedIn(userName);
