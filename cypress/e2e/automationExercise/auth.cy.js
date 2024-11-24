@@ -29,39 +29,43 @@ describe('Automation Exercise Test Cases', () => {
     authPage.navigateToHome();
     authPage.navigationMenu.clickSignupLogin();
     authPage.fillSignupForm(userName, email);
-    authPage.clickSignupButton()
+    authPage.clickSignupButton();
     authPage.fillAccountInformation(password);
     authPage.fillAddressDetails();
     authPage.clickCreateAccountBtn();
     authPage.verifyAccountCreated();
-    authPage.clickRegContinueButton()
+    authPage.clickRegContinueButton();
     authPage.verifyLoggedIn(userName);
   });
+
   it('Test Case 2 - Login User with correct email and password', () => {
     authPage.login(email, password);
-    authPage.clickLoginButton()
+    authPage.clickLoginButton();
     authPage.verifyLoggedIn(userName);
   });
+
   it('Test Case 3 - Login User with incorrect email and password', () => {
     authPage.login(incorrectEmail, incorrectPass);
-    authPage.clickLoginButton()
+    authPage.clickLoginButton();
     authPage.verifyLoginError();
-    //needs prep action before deleteAccount
-    authPage.navigateToLogin();
+    // Needs preparation action before deleteAccount
+    authPage.navigationMenu.clickSignupLogin();
     authPage.login(email, password);
     authPage.clickLoginButton();
   });
+
   it('Test Case 4 - Logout User', () => {
     authPage.login(email, password);
     authPage.clickLoginButton();
     authPage.verifyLoggedIn(userName);
     authPage.logout();
-    authPage.verifyLoginForm
-    //needs prep action before deleteAccount
-    authPage.navigateToLogin();
+    authPage.verifyLoginForm();
+    // Needs preparation action before deleteAccount
+    authPage.navigationMenu.clickSignupLogin();
     authPage.login(email, password);
     authPage.clickLoginButton();
   });
+
   it('Test Case 5 - Register User with existing email', () => {
     authPage.fillSignupForm(userName, email);
     authPage.clickSignupButton();

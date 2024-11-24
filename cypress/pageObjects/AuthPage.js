@@ -1,57 +1,56 @@
+
 import BasePage from './BasePage';
 
 class AuthPage extends BasePage {
 
-    // Signup Form Locators
-    signupForm = '.signup-form'; // The main signup form container
-    signupNameInput = '.signup-form input[name="name"]'; // Input field for entering name during signup
-    signupEmailInput = '.signup-form input[name="email"]'; // Input field for entering email during signup
-    signupButton = '.signup-form button'; // Button to submit the signup form
-    accountCreatedMessage = 'h2[data-qa="account-created"]'; // Message displayed when account is created successfully
-    continueButton = 'a[data-qa="continue-button"]'; // Button to continue after account creation
-    signupErrorExistedUser = '[action="/signup"] p'; // Error message displayed when Email Address is already exist
+    // Signup Form Locators as Getter Functions
+    getSignupForm = () => cy.get('.signup-form');
+    getSignupNameInput = () => cy.get('.signup-form input[name="name"]');
+    getSignupEmailInput = () => cy.get('.signup-form input[name="email"]');
+    getSignupButton = () => cy.get('.signup-form button');
+    getAccountCreatedMessage = () => cy.get('h2[data-qa="account-created"]');
+    getContinueButton = () => cy.get('a[data-qa="continue-button"]');
+    getSignupErrorExistedUser = () => cy.get('[action="/signup"] p');
 
-    // Login Form Locators
-    loginForm = '.login-form'; // The main login form container
-    loginEmailInput = '.login-form input[name="email"]'; // Input field for entering email during login
-    loginPasswordInput = '.login-form input[name="password"]'; // Input field for entering password during login
-    loginButton = '[data-qa="login-button"]'; // Button to submit the login form
-    loginErrorMessage = '[action="/login"] p'; // Error message displayed for invalid login credentials
+    // Login Form Locators as Getter Functions
+    getLoginForm = () => cy.get('.login-form');
+    getLoginEmailInput = () => cy.get('.login-form input[name="email"]');
+    getLoginPasswordInput = () => cy.get('.login-form input[name="password"]');
+    getLoginButton = () => cy.get('[data-qa="login-button"]');
+    getLoginErrorMessage = () => cy.get('[action="/login"] p');
 
-    // Account Information Locators (after signup)
-    genderFemaleRadio = '#id_gender2'; // Radio button to select "Female" gender
-    passwordInput = '#password'; // Input field for setting the password
-    dayDropdown = '#days'; // Dropdown to select the day of birth
-    monthDropdown = '#months'; // Dropdown to select the month of birth
-    yearDropdown = '#years'; // Dropdown to select the year of birth
-    newsletterCheckbox = '#newsletter'; // Checkbox to subscribe to the newsletter
-    specialOffersCheckbox = '#optin'; // Checkbox to receive special offers
+    // Account Information Locators as Getter Functions
+    getGenderFemaleRadio = () => cy.get('#id_gender2');
+    getPasswordInput = () => cy.get('#password');
+    getDayDropdown = () => cy.get('#days');
+    getMonthDropdown = () => cy.get('#months');
+    getYearDropdown = () => cy.get('#years');
+    getNewsletterCheckbox = () => cy.get('#newsletter');
+    getSpecialOffersCheckbox = () => cy.get('#optin');
 
-    // Address Information Locators (during signup)
-    firstNameInput = '#first_name'; // Input field for entering the first name
-    lastNameInput = '#last_name'; // Input field for entering the last name
-    companyInput = '#company'; // Input field for entering the company name
-    address1Input = '#address1'; // Input field for entering the first line of the address
-    address2Input = '#address2'; // Input field for entering the second line of the address
-    countryDropdown = '#country'; // Dropdown to select the country
-    stateInput = '#state'; // Input field for entering the state
-    cityInput = '#city'; // Input field for entering the city
-    zipcodeInput = '#zipcode'; // Input field for entering the zipcode
-    mobileNumberInput = '#mobile_number'; // Input field for entering the mobile number
-    createAccountButton = 'button[data-qa="create-account"]'; // Button to submit the account creation form
+    // Address Information Locators as Getter Functions
+    getFirstNameInput = () => cy.get('#first_name');
+    getLastNameInput = () => cy.get('#last_name');
+    getCompanyInput = () => cy.get('#company');
+    getAddress1Input = () => cy.get('#address1');
+    getAddress2Input = () => cy.get('#address2');
+    getCountryDropdown = () => cy.get('#country');
+    getStateInput = () => cy.get('#state');
+    getCityInput = () => cy.get('#city');
+    getZipcodeInput = () => cy.get('#zipcode');
+    getMobileNumberInput = () => cy.get('#mobile_number');
+    getCreateAccountButton = () => cy.get('button[data-qa="create-account"]');
 
-    // Verification Locators
-    loggedInAsText = '.navbar-nav li:last-child a'; // Text displaying the logged-in user's name
-    loggedInAsBoldText = '.navbar-nav li:last-child a b'; // Bold text displaying the logged-in username
+    // Verification Locators as Getter Functions
+    getLoggedInAsText = () => cy.get('.navbar-nav li:last-child a');
+    getLoggedInAsBoldText = () => cy.get('.navbar-nav li:last-child a b');
 
-    // Miscellaneous Locators
-    deleteAccountTitle = 'h2.title'; // Title displayed when an account is deleted
+    // Miscellaneous Locators as Getter Functions
+    getDeleteAccountTitle = () => cy.get('h2.title');
 
-
-
-    //Methods
+    // Methods updated to use the Getter Functions
     navigateToHome() {
-        cy.visit(this.baseUrl); // Используем baseUrl
+        cy.visit(this.baseUrl); // Using baseUrl
     }
 
     navigateToLogin() {
@@ -60,8 +59,8 @@ class AuthPage extends BasePage {
 
     deleteAccount() {
         this.navigationMenu.clickDeleteAccount(); 
-        cy.get(this.deleteAccountTitle).should('have.text', 'Account Deleted!');
-        cy.get(this.continueButton).click();
+        this.getDeleteAccountTitle().should('have.text', 'Account Deleted!');
+        this.getContinueButton().click();
     }
 
     logout() {
@@ -69,79 +68,79 @@ class AuthPage extends BasePage {
     }
 
     fillSignupForm(name, email) {
-        cy.get(this.signupNameInput).type(name);
-        cy.get(this.signupEmailInput).type(email);
+        this.getSignupNameInput().type(name);
+        this.getSignupEmailInput().type(email);
     }
 
     clickSignupButton() {
-        cy.get(this.signupButton).click();
+        this.getSignupButton().click();
     }
 
-
     verifyAccountCreated() {
-        cy.get(this.accountCreatedMessage).should('be.visible').should('have.text', 'Account Created!');
+        this.getAccountCreatedMessage().should('be.visible').should('have.text', 'Account Created!');
     }
 
     verifyLoggedIn(username) {
-        cy.get(this.loggedInAsText).should('be.visible').and('contain', `Logged in as ${username}`);
+        this.getLoggedInAsText().should('be.visible').and('contain', `Logged in as ${username}`);
     }
-    verifyLoginForm(){
-        cy.get(this.loginForm).should('be.visible');
-    };
 
-    verifySignupErrorMsg(){
-        cy.get(this.signupErrorExistedUser).should('be.visible');
-    };
+    verifyLoginForm() {
+        this.getLoginForm().should('be.visible');
+    }
+
+    verifySignupErrorMsg() {
+        this.getSignupErrorExistedUser().should('be.visible');
+    }
 
     login(email, password) {
-        cy.get(this.loginEmailInput).type(email);
-        cy.get(this.loginPasswordInput).type(password);
+        this.getLoginEmailInput().type(email);
+        this.getLoginPasswordInput().type(password);
     }
 
     clickLoginButton() {
-        cy.get(this.loginButton).click(); 
+        this.getLoginButton().click(); 
     }
 
     verifyLoginError() {
-        cy.get(this.loginErrorMessage).should('be.visible').should('have.text', 'Your email or password is incorrect!');
+        this.getLoginErrorMessage().should('be.visible').should('have.text', 'Your email or password is incorrect!');
     }
 
     fillAccountInformation(password) {
-        cy.get(this.genderFemaleRadio).click();
-        cy.get(this.passwordInput).type(password);
-        cy.get(this.dayDropdown).select('1');
-        cy.get(this.monthDropdown).select('1');
-        cy.get(this.yearDropdown).select('2000');
-        cy.get(this.newsletterCheckbox).check();
-        cy.get(this.specialOffersCheckbox).check();
+        this.getGenderFemaleRadio().click();
+        this.getPasswordInput().type(password);
+        this.getDayDropdown().select('1');
+        this.getMonthDropdown().select('1');
+        this.getYearDropdown().select('2000');
+        this.getNewsletterCheckbox().check();
+        this.getSpecialOffersCheckbox().check();
     }
 
     fillAddressDetails() {
-        cy.get(this.firstNameInput).type('Iana2');
-        cy.get(this.lastNameInput).type('Li');
-        cy.get(this.companyInput).type('PM');
-        cy.get(this.address1Input).type('MSK');
-        cy.get(this.address2Input).type('LA');
-        cy.get(this.countryDropdown).select('United States');
-        cy.get(this.stateInput).type('CA');
-        cy.get(this.cityInput).type('Los Angeles');
-        cy.get(this.zipcodeInput).type('90015');
-        cy.get(this.mobileNumberInput).type('8722941111');
+        this.getFirstNameInput().type('Iana2');
+        this.getLastNameInput().type('Li');
+        this.getCompanyInput().type('PM');
+        this.getAddress1Input().type('MSK');
+        this.getAddress2Input().type('LA');
+        this.getCountryDropdown().select('United States');
+        this.getStateInput().type('CA');
+        this.getCityInput().type('Los Angeles');
+        this.getZipcodeInput().type('90015');
+        this.getMobileNumberInput().type('8722941111');
     }
-    clickCreateAccountBtn(){
-        cy.get(this.createAccountButton).click();
-    };
-    clickRegContinueButton(){
-        cy.get(this.continueButton).click();
-    };
 
+    clickCreateAccountBtn() {
+        this.getCreateAccountButton().click();
+    }
 
-    registerUser(name, emai1, pass){
-        //this.navigationMenu.clickHome();
+    clickRegContinueButton() {
+        this.getContinueButton().click();
+    }
+
+    registerUser(name, email, password) {
         this.navigationMenu.clickSignupLogin();
-        this.fillSignupForm(name, emai1);
-        this.clickSignupButton()
-        this.fillAccountInformation(pass);
+        this.fillSignupForm(name, email);
+        this.clickSignupButton();
+        this.fillAccountInformation(password);
         this.fillAddressDetails();
         this.clickCreateAccountBtn();
         this.clickRegContinueButton();
