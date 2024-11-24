@@ -1,15 +1,26 @@
 /// <reference types="cypress" />
 import AuthPage from '../../pageObjects/AuthPage';
 
+function generateUniqueEmail() {
+  return `email${Date.now()}@g.com`;
+}
+
 describe('Automation Exercise Test Cases', () => {
   const authPage = new AuthPage();
   const userName = 'Iana';
-  const email = `email${Date.now()}@g.com`;
   const password = 'password';
-  const incorrectEmail = `incorrectemail${Date.now()}@g.com`;
   const incorrectPass = 'incorrectpassword';
+  let email;
+  let incorrectEmail;
+
+  before(() => {
+    email = generateUniqueEmail();
+    incorrectEmail = `incorrectemail${generateUniqueEmail()}`;
+  });
 
   beforeEach(function () {
+    cy.clearCookies();
+    cy.clearLocalStorage();
     if (this.currentTest.title !== 'Test Case 1 - Register User') {
       authPage.navigateToHome();
       authPage.registerUser(userName, email, password);
