@@ -1,4 +1,3 @@
-
 import BasePage from './BasePage';
 
 class AuthPage extends BasePage {
@@ -48,61 +47,54 @@ class AuthPage extends BasePage {
     // Miscellaneous Locators as Getter Functions
     getDeleteAccountTitle = () => cy.get('h2.title');
 
-    // Methods updated to use the Getter Functions
-    navigateToHome() {
-        cy.visit(this.baseUrl); // Using baseUrl
-    }
+    // Methods updated for method chaining
 
-    navigateToLogin() {
-        this.navigationMenu.clickSignupLogin(); 
-    }
-
-    deleteAccount() {
-        this.navigationMenu.clickDeleteAccount(); 
-        this.getDeleteAccountTitle().should('have.text', 'Account Deleted!');
-        this.getContinueButton().click();
-    }
-
-    logout() {
-        this.navigationMenu.clickLogout(); 
-    }
 
     fillSignupForm(name, email) {
         this.getSignupNameInput().type(name);
         this.getSignupEmailInput().type(email);
+        return this;
     }
 
     clickSignupButton() {
         this.getSignupButton().click();
+        return this;
     }
 
     verifyAccountCreated() {
         this.getAccountCreatedMessage().should('be.visible').should('have.text', 'Account Created!');
+        return this;
     }
 
     verifyLoggedIn(username) {
         this.getLoggedInAsText().should('be.visible').and('contain', `Logged in as ${username}`);
+        return this;
     }
 
     verifyLoginForm() {
         this.getLoginForm().should('be.visible');
+        return this;
     }
 
     verifySignupErrorMsg() {
         this.getSignupErrorExistedUser().should('be.visible');
+        return this;
     }
 
     login(email, password) {
         this.getLoginEmailInput().type(email);
         this.getLoginPasswordInput().type(password);
+        return this;
     }
 
     clickLoginButton() {
-        this.getLoginButton().click(); 
+        this.getLoginButton().click();
+        return this;
     }
 
     verifyLoginError() {
         this.getLoginErrorMessage().should('be.visible').should('have.text', 'Your email or password is incorrect!');
+        return this;
     }
 
     fillAccountInformation(password) {
@@ -113,6 +105,7 @@ class AuthPage extends BasePage {
         this.getYearDropdown().select('2000');
         this.getNewsletterCheckbox().check();
         this.getSpecialOffersCheckbox().check();
+        return this;
     }
 
     fillAddressDetails() {
@@ -126,24 +119,28 @@ class AuthPage extends BasePage {
         this.getCityInput().type('Los Angeles');
         this.getZipcodeInput().type('90015');
         this.getMobileNumberInput().type('8722941111');
+        return this;
     }
 
     clickCreateAccountBtn() {
         this.getCreateAccountButton().click();
+        return this;
     }
 
     clickRegContinueButton() {
         this.getContinueButton().click();
+        return this;
     }
 
     registerUser(name, email, password) {
-        this.navigationMenu.clickSignupLogin();
-        this.fillSignupForm(name, email);
-        this.clickSignupButton();
-        this.fillAccountInformation(password);
-        this.fillAddressDetails();
-        this.clickCreateAccountBtn();
-        this.clickRegContinueButton();
+        this.goToSignupLoginPageUsingNavMenu()
+            .fillSignupForm(name, email)
+            .clickSignupButton()
+            .fillAccountInformation(password)
+            .fillAddressDetails()
+            .clickCreateAccountBtn()
+            .clickRegContinueButton();
+        return this;
     }
 }
 
