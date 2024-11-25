@@ -1,11 +1,11 @@
 import NavigationMenu from './NavigationMenu';
 
 class BasePage {
-    constructor() {
-        this.navigationMenu = new NavigationMenu(); // Attach NavigationMenu for easy access
-        this.baseUrl = 'https://automationexercise.com';
-    }
+    baseUrl = 'https://automationexercise.com';
 
+    constructor() {
+        this.navigationMenu = new NavigationMenu(); // Attach NavigationMenu for easy access 
+    }
 
     // Navigate to the base URL
     navigateToHome() {
