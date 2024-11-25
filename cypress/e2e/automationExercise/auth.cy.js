@@ -1,22 +1,23 @@
 /// <reference types="cypress" />
 import AuthPage from '../../pageObjects/AuthPage';
-import BasePage from '../../pageObjects/BasePage';
+import { generateUniqueEmail } from '../../support/utils';
 
-// Utility function to generate a unique email
-function generateUniqueEmail() {
-  return `email${Date.now()}@g.com`;
-}
+
 
 describe('Automation Exercise Test Cases', () => {
   const authPage = new AuthPage();
-  const userName = 'Iana';
-  const password = 'password';
   const incorrectPass = 'incorrectpassword';
   let email;
   let incorrectEmail;
+  let userData;
 
   // Generate unique email addresses before the test suite runs
   before(() => {
+
+    cy.fixture('userData').then((data) =>{
+      userData = data;
+    });
+
     email = generateUniqueEmail();
     incorrectEmail = generateUniqueEmail();
   });
@@ -28,7 +29,7 @@ describe('Automation Exercise Test Cases', () => {
     if (this.currentTest.title !== 'Test Case 1 - Register User') {
       authPage
         .navigateToHome()
-        .registerUser(userName, email, password)
+        .registerUser(userData.userName, email, userData.password)
         .logoutUsingNavMenu()
         .navigateToHome()
         .goToSignupLoginPageUsingNavMenu();
@@ -45,21 +46,21 @@ describe('Automation Exercise Test Cases', () => {
   it('Test Case 1 - Register User', () => {
     authPage.navigateToHome()
       .goToSignupLoginPageUsingNavMenu()
-      .fillSignupForm(userName, email)
+      .fillSignupForm(userData.userName, email)
       .clickSignupButton()
-      .fillAccountInformation(password)
+      .fillAccountInformation(userData.password)
       .fillAddressDetails()
       .clickCreateAccountBtn()
       .verifyAccountCreated()
       .clickRegContinueButton()
-      .verifyLoggedIn(userName);
+      .verifyLoggedIn(userData.userName);
   });
 
   it('Test Case 2 - Login User with correct email and password', () => {
     authPage
-      .login(email, password)
+      .login(email, userData.password)
       .clickLoginButton()
-      .verifyLoggedIn(userName);
+      .verifyLoggedIn(userData.userName);
   });
 
   it('Test Case 3 - Login User with incorrect email and password', () => {
@@ -71,28 +72,28 @@ describe('Automation Exercise Test Cases', () => {
     // Log in with the correct credentials for cleanup
     authPage
       .goToSignupLoginPageUsingNavMenu()
-      .login(email, password)
+      .login(email, userData.password)
       .clickLoginButton();
   });
 
   it('Test Case 4 - Logout User', () => {
     authPage
-      .login(email, password)
+      .login(email, userData.password)
       .clickLoginButton()
-      .verifyLoggedIn(userName)
+      .verifyLoggedIn(userData.userName)
       .logoutUsingNavMenu()
       .verifyLoginForm();
 
     // Log in again for cleanup
     authPage
       .goToSignupLoginPageUsingNavMenu()
-      .login(email, password)
+      .login(email, userData.password)
       .clickLoginButton();
   });
 
   it('Test Case 5 - Register User with existing email', () => {
     authPage
-      .fillSignupForm(userName, email)
+      .fillSignupForm(userData.userName, email)
       .clickSignupButton()
       .verifySignupErrorMsg();
   });
