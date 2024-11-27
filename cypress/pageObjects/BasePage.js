@@ -1,3 +1,4 @@
+import AuthPage from './AuthPage';
 import NavigationMenu from './NavigationMenu';
 
 class BasePage {
@@ -64,7 +65,7 @@ class BasePage {
     // Log out the user via navigation menu
     logoutUsingNavMenu() {
         this.navigationMenu.clickLogout(); // Нажимаем "Logout" в меню
-        return this;
+        return new AuthPage;
     }
 
     // Delete the account via navigation menu
@@ -72,7 +73,6 @@ class BasePage {
         this.navigationMenu.clickDeleteAccount(); // Нажимаем "Delete Account" в меню
         return this;
     }
-
 }
 
 export default BasePage;

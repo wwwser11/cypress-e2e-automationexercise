@@ -29,16 +29,26 @@ class AuthPage extends BasePage {
         return new RegistrationPage(); // Navigates to RegistrationPage
     }
 
+    clickSignupButtonExpectingError() {
+        this.getSignupButton().click();
+        return this; 
+    }
+
     // Login Methods
     fillLoginForm(email, password) {
-        this.getLoginEmailInput().type(email);
-        this.getLoginPasswordInput().type(password);
+        this.getLoginEmailInput().clear().type(email);
+        this.getLoginPasswordInput().clear().type(password);
         return this; 
     }
 
     clickLoginButton() {
         this.getLoginButton().click();
         return new MainPage(); // Navigates to MainPage
+    }
+    
+    clickLoginButtonExpectingError() {
+        this.getLoginButton().click();
+        return this; // stay on the same page to verify the error
     }
 
     // Verification Methods
