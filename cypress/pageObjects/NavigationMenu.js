@@ -1,3 +1,7 @@
+import HomePage from './HomePage'
+import ContactUsPage from './ContactUsPage'
+import SignUpLoginPage from './SignUpLoginPage'
+
 class NavigationMenu {
 
     // Navigation Locators as Getter Functions
@@ -16,57 +20,57 @@ class NavigationMenu {
     // Methods to click on navigation elements, updated to support chaining
     clickIcon() {
         this.getIconNavBtn().click();
-        return this; // Enable chaining
+        return new HomePage;
     }
 
     clickHome() {
         this.getHomeNavBtn().click();
-        return this; // Enable chaining
+        return new HomePage;
     }
 
     clickProducts() {
         this.getProductsNavBtn().click();
-        return this; // Enable chaining
+        //need a return page
     }
 
     clickCart() {
         this.getCartNavBtn().click();
-        return this; // Enable chaining
+        //need a return page
     }
 
     clickTestCases() {
         this.getTestCasesNavBtn().click();
-        return this; // Enable chaining
+        //need a return page
     }
 
     clickApiTesting() {
         this.getApiTestingNavBtn().click();
-        return this; // Enable chaining
+        //need a return page
     }
 
     clickVideoTutorials() {
         this.getVideoTutNavBtn().click();
-        return this; // Enable chaining
+        //need a return page
     }
 
     clickContactUs() {
         this.getContactUsNavBtn().click();
-        return this; // Enable chaining
+        return new ContactUsPage;
     }
 
     clickSignupLogin() {
         this.getSignupLoginNavBtn().click();
-        return this; // Enable chaining
+        return new SignUpLoginPage;
     }
 
     clickLogout() {
         this.getLogoutNavBtn().click();
-        return this; // Enable chaining
+        return new SignUpLoginPage;
     }
 
     clickDeleteAccount() {
         this.getDeleteAccountNavBtn().click();
-        return this; // Enable chaining
+        return new HomePage;
     }
 }
 
