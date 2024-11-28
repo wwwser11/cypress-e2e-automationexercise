@@ -1,7 +1,6 @@
-import BasePage from './BasePage';
-import MainPage from './MainPage';
+import HomePage from './HomePage';
 
-class RegistrationPage extends BasePage {
+class RegistrationPage {
     // Locators as Getter Functions
     getAccountName = () => cy.get('#name');
     getGenderFemaleRadio = () => cy.get('#id_gender2');
@@ -65,21 +64,8 @@ class RegistrationPage extends BasePage {
 
     clickRegContinueButton() {
         this.getContinueButton().click();
-        return new MainPage();
+        return new HomePage();
     }
 }
 
 export default RegistrationPage;
-
-/* 
-registerUser(name, email, password) {
-    this.goToSignupLoginPageUsingNavMenu()
-        .fillSignupForm(name, email)
-        .clickSignupButton()
-        .fillAccountInformation(password)
-        .fillAddressDetails()
-        .clickCreateAccountBtn()
-        .clickRegContinueButton();
-    return this;
-} 
-*/

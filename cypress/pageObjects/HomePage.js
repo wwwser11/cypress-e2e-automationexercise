@@ -1,16 +1,18 @@
-import BasePage from './BasePage';
 
-class MainPage extends BasePage {
-
-
+class HomePage {
+    baseUrl = 'https://automationexercise.com';
     getLoggedInAsText = () => cy.get('.navbar-nav li:last-child a');
 
-    // Method to verify the user is logged in
+    navigateToHome() {
+        cy.visit(this.baseUrl);
+        return this; 
+    }
+
     verifyLoggedIn(username) {
         this.getLoggedInAsText().should('be.visible').and('contain', `Logged in as ${username}`);
         return this;
     }
 
-}
-export default MainPage;
 
+}
+export default HomePage;

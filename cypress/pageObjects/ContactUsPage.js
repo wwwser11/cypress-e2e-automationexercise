@@ -1,10 +1,8 @@
-import BasePage from './BasePage';
 
 
-class ContactUsPage extends BasePage {
+class ContactUsPage {
 
     contatUsPageUrl = 'https://automationexercise.com/contact_us';
-    getInTouchSigh = '.contact-form .title'
 
     // Contact Us Form Locators
     nameField = 'input[data-qa="name"]';
@@ -13,6 +11,7 @@ class ContactUsPage extends BasePage {
     messageField = 'input[data-qa="message"]';
     inputFile = 'input[name="upload_file"]';
     submitButton = 'input[data-qa="submit-button"]';
+    getInTouchSigh = '.contact-form .title';
 
     fillContactForm (name, email, subject, message) {
         cy.get(this.nameField).type(name);
@@ -22,7 +21,8 @@ class ContactUsPage extends BasePage {
     }
 
     clickSubmitButton (){
-        cy.get(submitButton).click();
+        cy.get(this.submitButton).click();
+        return this;
     }
 }
-
+export default ContactUsPage;

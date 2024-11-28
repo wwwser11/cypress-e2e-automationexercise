@@ -1,8 +1,8 @@
-import BasePage from './BasePage';
 import RegistrationPage from './RegistrationPage';
-import MainPage from './MainPage';
+import HomePage from './HomePage';
 
-class AuthPage extends BasePage {
+
+class SignUpLoginPage {
     // Signup Form Locators as Getter Functions
     getSignupForm = () => cy.get('.signup-form');
     getSignupNameInput = () => cy.get('.signup-form input[name="name"]');
@@ -43,7 +43,7 @@ class AuthPage extends BasePage {
 
     clickLoginButton() {
         this.getLoginButton().click();
-        return new MainPage(); // Navigates to MainPage
+        return new HomePage(); // Navigates to HomePage
     }
     
     clickLoginButtonExpectingError() {
@@ -57,12 +57,12 @@ class AuthPage extends BasePage {
         return this;
     }
 
-    verifySignupErrorMsg() {
+    verifySignupErrorMessage() {
         this.getSignupErrorExistedUser().should('be.visible');
         return this;
     }
 
-    verifyLoginError() {
+    verifyLoginErrorMessage() {
         this.getLoginErrorMessage()
             .should('be.visible')
             .should('have.text', 'Your email or password is incorrect!');
@@ -70,4 +70,4 @@ class AuthPage extends BasePage {
     }
 }
 
-export default AuthPage;
+export default SignUpLoginPage;

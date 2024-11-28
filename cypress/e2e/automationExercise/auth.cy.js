@@ -1,115 +1,104 @@
 /// <reference types="cypress" />
-import AuthPage from '../../pageObjects/AuthPage';
-import MainPage from '../../pageObjects/MainPage';
+import NavigationMenu from '../../pageObjects/NavigationMenu';
+import SignUpLoginPage from '../../pageObjects/SignUpLoginPage';
 import RegistrationPage from '../../pageObjects/RegistrationPage';
+import HomePage from '../../pageObjects/HomePage';
 import { generateUniqueEmail } from '../../support/utils';
 
-
-
 describe('Automation Exercise Test Cases', () => {
-  const authPage = new AuthPage();
-  const incorrectPass = 'incorrectpassword';
+  const navigationMenu = new NavigationMenu();
+  const homePage = new HomePage();
+  let signUpLoginPage;
   let email;
   let incorrectEmail;
   let userData;
-  let adress;
+  let address;
 
   // Generate unique email addresses before the test suite runs
   before(() => {
-
     cy.fixture('userData').then((data) => {
       userData = data;
     });
 
     cy.fixture('userAdress').then((data) => {
-      adress = data;
+      address = data;
+      cy.log('Loaded userData:', userData);
     });
 
-    // ensure that email and userData are ready before test execution
     cy.then(() => {
       email = generateUniqueEmail();
       incorrectEmail = generateUniqueEmail();
     });
-
   });
 
-
-  // Clear cookies and localStorage before each test, and prepare the user if needed
+  // Clear cookies and prepare a registered user before each test, except Test Case 1
   beforeEach(function () {
     cy.clearCookies();
     cy.clearLocalStorage();
+    homePage.navigateToHome()
 
     if (this.currentTest.title !== 'Test Case 1 - Register User') {
-      authPage.navigateToHome()
-        .goToSignupLoginPageUsingNavMenu()
+      signUpLoginPage = navigationMenu.clickSignupLogin();
+      signUpLoginPage
         .fillSignupForm(userData.userName, email)
         .clickSignupButton()
         .fillAccountInformation(userData.password)
-        .fillAddressDetails(adress)
+        .fillAddressDetails(address)
         .clickCreateAccountBtn()
-        .clickRegContinueButton()
-        .logoutUsingNavMenu();
+        .clickRegContinueButton();
+      navigationMenu.clickLogout();
     }
-
   });
 
   // Delete the account after each test unless it's Test Case 5
   afterEach(function () {
     if (this.currentTest.title !== 'Test Case 5 - Register User with existing email') {
-      authPage.navigateToHome()
-      authPage.deleteAccountUsingNavMenu();
+      navigationMenu.clickDeleteAccount();
     }
   });
- 
-  it('Test Case 1 - Register User', () => {
 
-    authPage.navigateToHome()
-      .goToSignupLoginPageUsingNavMenu()
+  it('Test Case 1 - Register User', () => {
+    signUpLoginPage = navigationMenu.clickSignupLogin();
+    signUpLoginPage
       .fillSignupForm(userData.userName, email)
       .clickSignupButton()
       .fillAccountInformation(userData.password)
-      .fillAddressDetails(adress)
+      .fillAddressDetails(address)
       .clickCreateAccountBtn()
-      .clickRegContinueButton()
-      .verifyLoggedIn(userData.userName)
-
+      .clickRegContinueButton();
+    navigationMenu.clickHome().verifyLoggedIn(userData.userName);
   });
 
   it('Test Case 2 - Login User with correct email and password', () => {
-    authPage
+    signUpLoginPage = navigationMenu.clickSignupLogin();
+    signUpLoginPage
       .fillLoginForm(email, userData.password)
-      .clickLoginButton()
-      .verifyLoggedIn(userData.userName);
+      .clickLoginButton();
+    navigationMenu.clickHome().verifyLoggedIn(userData.userName);
   });
 
   it('Test Case 3 - Login User with incorrect email and password', () => {
-    authPage
-      .fillLoginForm(incorrectEmail, incorrectPass)
+    signUpLoginPage = navigationMenu.clickSignupLogin();
+    signUpLoginPage
+      .fillLoginForm(incorrectEmail, 'incorrectpassword')
       .clickLoginButtonExpectingError()
-      .verifyLoginError();
-    // Log in with the correct credentials for cleanup
-    authPage
-      .fillLoginForm(email, userData.password)
-      .clickLoginButton()
+      .verifyLoginErrorMessage();
+    signUpLoginPage.fillLoginForm(email, userData.password).clickLoginButton();
   });
 
   it('Test Case 4 - Logout User', () => {
-    authPage
-      .fillLoginForm(email, userData.password)
-      .clickLoginButton()
-      .logoutUsingNavMenu()
-      .verifyLoginForm();
-    // Log in again for cleanup
-    authPage
-      .fillLoginForm(email, userData.password)
-      .clickLoginButton()
+    signUpLoginPage = navigationMenu.clickSignupLogin();
+    signUpLoginPage.fillLoginForm(email, userData.password).clickLoginButton();
+    navigationMenu.clickLogout();
+    signUpLoginPage.verifyLoginForm();
+    signUpLoginPage.fillLoginForm(email, userData.password).clickLoginButton();
   });
 
   it('Test Case 5 - Register User with existing email', () => {
-    authPage
-      .goToSignupLoginPageUsingNavMenu()
+    signUpLoginPage = navigationMenu.clickSignupLogin();
+    signUpLoginPage
       .fillSignupForm(userData.userName, email)
       .clickSignupButtonExpectingError()
-      .verifySignupErrorMsg();
+      .verifySignupErrorMessage();
   });
 });
