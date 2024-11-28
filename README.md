@@ -74,14 +74,14 @@ The test cases for AutomationExercise are organized into logical groups for clar
 To maintain scalability and improve test readability, the project uses the Page Object Model (POM). Each page of the AutomationExercise website is represented as a class encapsulating its locators and actions.
 
 ### Available Page Object Classes
-
+To ensure scalability and maintainability, this project uses the Page Object Model (POM). Each page of the AutomationExercise website is represented as a class encapsulating its locators and actions.
 The Page Object classes are stored in the [`pageObjects`](./cypress/pageObjects) folder:
 
-- **`AuthPage.js`**: Handles authentication functionalities, such as login, signup, and logout.
-- **`ProductPage.js`**: Manages interactions with the product listing and detail pages.
-- **`CheckoutPage.js`**: Covers checkout flows, including placing orders and payment processes.
-- **`ContactUsPage.js`**: Focuses on the "Contact Us" form and related actions.
-- **`UiPage.js`**: Manages general UI elements and actions, such as scroll or navigation interactions.
+- **`NavigationMenu.js`**: Manages navigation through the website, including menu interactions and page transitions.
+- **`HomePage.js`**: Represents the home page elements and actions.
+- **`SignUpLoginPage.js`**: Handles the signup and login workflows.
+- **`RegistrationPage.js`**: Covers account registration and address details form.
+- **`ContactUsPage.js`**: Focuses on the “Contact Us” form and its interactions.
 
 Each class contains:
 - **Locators**: Defined as properties for easy access and maintainability.
@@ -125,12 +125,10 @@ After installation, you can run the tests using Cypress.
 ### Project Structure
 The test cases are organized into the following files:
 
-- auth.cy.js: Authentication Tests
-- contact_subscription.cy.js: Contact and Subscription Tests
-- product.cy.js: Product Tests
-- cart_checkout.cy.js: Cart and Checkout Tests
-- ui.cy.js: UI Tests
-- Each file contains specific test cases grouped by functionality for easier maintenance and scalability.
+The tests are organized into logical files for ease of maintenance:
+- auth.cy.js: Authentication test cases (e.g., Register, Login, Logout).
+- contact_subscription.cy.js: Tests for the Contact Us form and subscriptions.
+- Future Tests: Placeholder for upcoming functionality, such as cart and product tests.
 
 ### Notes
 This project is designed for educational purposes and practice with Cypress. The tests cover essential functionalities of the AutomationExercise website.
