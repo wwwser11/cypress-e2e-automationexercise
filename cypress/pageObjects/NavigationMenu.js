@@ -17,6 +17,9 @@ class NavigationMenu {
     getDeleteAccountNavBtn = () => cy.get('.navbar-nav a[href="/delete_account"]');
     getIconNavBtn = () => cy.get('a [src="/static/images/home/logo.png"]');
 
+    //
+    buttonHighlightedColor = "rgb(255, 165, 0)";
+
     // Methods to click on navigation elements, updated to support chaining
     clickIcon() {
         this.getIconNavBtn().click();
@@ -26,6 +29,11 @@ class NavigationMenu {
     clickHome() {
         this.getHomeNavBtn().click();
         return new HomePage;
+    }
+
+    verifyHomeButtonHighlighted() {
+        this.getHomeNavBtn().should("have.css", "color", this.buttonHighlightedColor);
+        return this;
     }
 
     clickProducts() {
