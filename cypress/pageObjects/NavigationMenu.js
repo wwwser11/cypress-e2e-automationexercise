@@ -1,6 +1,7 @@
 import HomePage from './HomePage'
 import ContactUsPage from './ContactUsPage'
 import SignUpLoginPage from './SignUpLoginPage'
+import CartPage from './CartPage';
 
 class NavigationMenu {
 
@@ -43,8 +44,14 @@ class NavigationMenu {
 
     clickCart() {
         this.getCartNavBtn().click();
-        //need a return page
+        return new CartPage;
     }
+
+    verifyCartButtonHighlighted() {
+        this.getCartNavBtn().should("have.css", "color", this.buttonHighlightedColor);
+        return this;
+    }
+
 
     clickTestCases() {
         this.getTestCasesNavBtn().click();
