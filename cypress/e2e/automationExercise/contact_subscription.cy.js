@@ -4,12 +4,16 @@ import SignUpLoginPage from '../../pageObjects/SignUpLoginPage';
 import RegistrationPage from '../../pageObjects/RegistrationPage';
 import ContactUsPage from '../../pageObjects/ContactUsPage';
 import HomePage from '../../pageObjects/HomePage';
+import FooterPage from '../../pageObjects/FooterPage';
 import { generateUniqueEmail } from '../../support/utils';
+import CartPage from '../../pageObjects/CartPage';
+
 
 describe('Automation Exercise Test Cases', () => {
     const navigationMenu = new NavigationMenu();
     const homePage = new HomePage();
     const contactUsPage = new ContactUsPage();
+    const footerPage = new FooterPage();
     let signUpLoginPage;
     let email;
     let incorrectEmail;
@@ -42,7 +46,7 @@ describe('Automation Exercise Test Cases', () => {
         homePage.navigateToHome()
     });
 
-    it.only('Test Case 6: Contact Us Form', () => {
+    it('Test Case 6: Contact Us Form', () => {
         navigationMenu.verifyHomeButtonHighlighted()
             .clickContactUs();
         contactUsPage.verifygetInTouchSighVisible()
@@ -53,4 +57,21 @@ describe('Automation Exercise Test Cases', () => {
             .okToProceedAlert()
             .verifySuccessMessageVisible()
     });
+
+    it('Test Case 10: Verify Subscription in home page', () =>{
+        navigationMenu.verifyHomeButtonHighlighted()
+        footerPage.verifyFooterText()
+            .fillSubscribeEmail(email)
+            .clickSubmitSubscribeButton()
+            .verifySuccessMessageVisible()
+    })
+    it('Test Case 11: Verify Subscription in Cart page', () =>{
+        navigationMenu.verifyHomeButtonHighlighted()
+            .clickCart()
+        navigationMenu.verifyCartButtonHighlighted()
+        footerPage.verifyFooterText()
+            .fillSubscribeEmail(email)
+            .clickSubmitSubscribeButton()
+            .verifySuccessMessageVisible()
+    })
 });
