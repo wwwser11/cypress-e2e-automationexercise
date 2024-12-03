@@ -46,6 +46,10 @@ describe('Automation Exercise Test Cases', () => {
         homePage.navigateToHome()
     });
 
+    after(() => {
+        cy.task('deleteFile', 'cypress/fixtures/tempFile.txt');
+    });
+
     it('Test Case 6: Contact Us Form', () => {
         navigationMenu.verifyHomeButtonHighlighted()
             .clickContactUs();
