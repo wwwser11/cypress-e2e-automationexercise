@@ -55,7 +55,6 @@ describe('Automation Exercise Test Cases', () => {
             .clickContactUs();
         contactUsPage.verifygetInTouchSighVisible()
             .fillContactForm(userData.userName, email)
-            //file upload needs
             .attachFile('tempFile.txt')
             .clickSubmitButton()
             .okToProceedAlert()
@@ -69,6 +68,7 @@ describe('Automation Exercise Test Cases', () => {
             .clickSubmitSubscribeButton()
             .verifySuccessMessageVisible()
     })
+    
     it('Test Case 11: Verify Subscription in Cart page', () =>{
         navigationMenu.verifyHomeButtonHighlighted()
             .clickCart()
