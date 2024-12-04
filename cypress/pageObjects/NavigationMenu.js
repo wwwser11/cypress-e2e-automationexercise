@@ -2,12 +2,13 @@ import HomePage from './HomePage'
 import ContactUsPage from './ContactUsPage'
 import SignUpLoginPage from './SignUpLoginPage'
 import CartPage from './CartPage';
+import ProductPage from './ProductPage';
 
 class NavigationMenu {
 
     // Navigation Locators as Getter Functions
     getHomeNavBtn = () => cy.get('.nav a[href="/"]');
-    getProductsNavBtn = () => cy.get('.nav a[href="products"]');
+    getProductsNavBtn = () => cy.get('.nav a[href="/products"]');
     getCartNavBtn = () => cy.get('.nav a[href="/view_cart"]');
     getTestCasesNavBtn = () => cy.get('.nav a[href="/test_cases"]');
     getApiTestingNavBtn = () => cy.get('.nav a[href="/api_list"]');
@@ -39,7 +40,7 @@ class NavigationMenu {
 
     clickProducts() {
         this.getProductsNavBtn().click();
-        //need a return page
+        return new ProductPage;
     }
 
     clickCart() {
