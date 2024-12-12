@@ -11,7 +11,6 @@ describe('Automation Exercise Test Cases', () => {
     const productPage = new ProductPage();
     const productDetailPage = new ProductDetailPage
 
-
     beforeEach(function () {
         cy.clearCookies();
         cy.clearLocalStorage();
@@ -25,5 +24,25 @@ describe('Automation Exercise Test Cases', () => {
             .clickFirstProductViewLink()
 
         productDetailPage.verifyMainProductDetailPageElementsVisible();
-      });
+    });
+
+    it.only('Test Case 9: Search Product', () => {
+        navigationMenu.verifyHomeButtonHighlighted()
+            .clickProducts();
+        productPage.verifyAllProductsListVisible()
+        cy.fixture('productNames').then((data) => {
+            const productName = data.productsByName
+            productName.forEach((name) => {
+            productPage.searchProduct(name)
+                .getProductList().each(($el, i) => {
+                        cy.wrap($el)
+                        .find('p')
+                        .invoke('text')
+                        .then((text) => {
+                            expect(text).to.eq.name
+                        })
+                })
+            })
+        })
+    });
 });

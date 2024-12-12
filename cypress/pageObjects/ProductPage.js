@@ -7,6 +7,9 @@ class ProductPage {
     getAllProductsDiv = () => cy.get('.features_items')
     getAllProductsList = () => cy.get('.features_items .col-sm-4')
     getFirstProductViewLink = () => cy.get('[href="/product_details/1"]')
+    getProductSearchField = () => cy.get('#search_product')
+    getSubmitSearchButton = () => cy.get('#submit_search')
+    getProductList = () => cy.get('.features_items .col-sm-4')
     
 
     verifyAllProductsTitileVisible () {
@@ -22,6 +25,22 @@ class ProductPage {
     clickFirstProductViewLink () {
         this.getFirstProductViewLink().click();
         return new ProductDetailPage;
+    }
+
+    clickSubmitSearchButton () {
+        this.getSubmitSearchButton().click();
+        return this;
+    }
+
+    fillProductSearchField (product) {
+        this.getProductSearchField().clear().type(product);
+        return this;
+    }
+
+    searchProduct(product){
+        this.fillProductSearchField(product)
+        this.clickSubmitSearchButton()
+        return this;
     }
 
 
