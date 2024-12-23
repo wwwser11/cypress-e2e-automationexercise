@@ -29,43 +29,69 @@ The goal of this project is to develop automated tests for the key functionaliti
 
 ## Test Structure
 
-The test cases for AutomationExercise are organized into logical groups for clarity and maintainability. Each group contains specific test cases focused on a particular functionality of the website.
+The test cases for AutomationExercise are organized into logical groups based on their corresponding Page Objects. Each group contains specific test cases focused on a particular functionality of the website.
 
-### 1. Authentication Tests (`auth.cy.js`)
-- **Test Case 1**: Register User
-- **Test Case 2**: Login User with correct email and password
-- **Test Case 3**: Login User with incorrect email and password
-- **Test Case 4**: Logout User
-- **Test Case 5**: Register User with existing email
+---
 
-### 2. Contact and Subscription Tests (`contact_subscription.cy.js`)
-- **Test Case 6**: Contact Us Form
-- **Test Case 10**: Verify Subscription on home page
-- **Test Case 11**: Verify Subscription on Cart page
+### **1. Authentication Tests (`SignUpLoginPage.cy.js`)**
+**Page Object:** `SignUpLoginPage.js`  
+- **Test Case 1**: Register User  
+- **Test Case 2**: Login User with correct email and password  
+- **Test Case 3**: Login User with incorrect email and password  
+- **Test Case 4**: Logout User  
+- **Test Case 5**: Register User with existing email  
 
-### 3. Product Tests (`product.cy.js`)
-- **Test Case 8**: Verify All Products and product detail page
-- **Test Case 9**: Search Product
-- **Test Case 18**: View Category Products
-- **Test Case 19**: View & Cart Brand Products
-- **Test Case 21**: Add review on product
+---
 
-### 4. Cart and Checkout Tests (`cart_checkout.cy.js`)
-- **Test Case 7**: Verify Test Cases Page
-- **Test Case 12**: Add Products in Cart
-- **Test Case 13**: Verify Product quantity in Cart
-- **Test Case 14**: Place Order: Register while Checkout
-- **Test Case 15**: Place Order: Register before Checkout
-- **Test Case 16**: Place Order: Login before Checkout
-- **Test Case 17**: Remove Products from Cart
-- **Test Case 20**: Search Products and Verify Cart After Login
-- **Test Case 22**: Add to cart from Recommended items
-- **Test Case 23**: Verify address details on checkout page
-- **Test Case 24**: Download Invoice after purchase order
+### **2. Contact and Subscription Tests (`ContactUsPage.cy.js`)**
+**Page Object:** `ContactUsPage.js` and `FooterPage.js`  
+- **Test Case 6**: Contact Us Form  
+- **Test Case 10**: Verify Subscription on home page  
+- **Test Case 11**: Verify Subscription on Cart page  
 
-### 5. UI Tests (`ui.cy.js`)
-- **Test Case 25**: Verify Scroll Up using 'Arrow' button and Scroll Down functionality
-- **Test Case 26**: Verify Scroll Up without 'Arrow' button and Scroll Down functionality
+---
+
+### **3. Product Tests (`ProductPage.cy.js`)**
+**Page Object:** `ProductPage.js`  
+- **Test Case 8**: Verify All Products and product detail page  
+- **Test Case 9**: Search Product  
+
+**Page Object:** `ProductDetailPage.js`  
+- **Test Case 18**: View Category Products  
+- **Test Case 19**: View & Cart Brand Products  
+- **Test Case 21**: Add review on product  
+
+---
+
+### **4. Cart and Checkout Tests (`CartPage.cy.js`)**
+**Page Object:** `CartPage.js`  
+- **Test Case 12**: Add Products in Cart  
+- **Test Case 13**: Verify Product quantity in Cart  
+- **Test Case 17**: Remove Products from Cart  
+- **Test Case 20**: Search Products and Verify Cart After Login  
+- **Test Case 22**: Add to cart from Recommended items  
+
+**Page Object:** `RegistrationPage.js`  
+- **Test Case 14**: Place Order: Register while Checkout  
+- **Test Case 15**: Place Order: Register before Checkout  
+- **Test Case 16**: Place Order: Login before Checkout  
+
+**Page Object:** `HomePage.js`  
+- **Test Case 23**: Verify address details on checkout page  
+- **Test Case 24**: Download Invoice after purchase order  
+
+---
+
+### **5. UI Functionality Tests (`UiFunctionality.cy.js`)**
+**Page Object:** `NavigationMenu.js`  
+- **Test Case 25**: Verify Scroll Up using 'Arrow' button and Scroll Down functionality  
+- **Test Case 26**: Verify Scroll Up without 'Arrow' button and Scroll Down functionality  
+
+---
+
+### **6. Test Cases Page (`TestCasesPage.cy.js`)**
+**Page Object:** `HomePage.js`  
+- **Test Case 7**: Verify Test Cases Page  
 
 ---
 

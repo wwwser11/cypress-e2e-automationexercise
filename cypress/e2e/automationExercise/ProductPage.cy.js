@@ -45,4 +45,8 @@ describe('Automation Exercise Test Cases', () => {
             })
         })
     });
+
+    it.only('Test Case 18: View Category Products', () =>{
+        
+    })
 });
