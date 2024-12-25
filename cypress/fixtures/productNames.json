@@ -26,6 +26,16 @@
             "Tops & Shirts": [5],
             "Dress": [4]
         }
-    }
-        
+    },
+
+    "brands": [
+        "Polo",
+        "H&M",
+        "Madame",
+        "Mast & Harbour",
+        "Babyhug",
+        "Allen Solly Junior",
+        "Kookie Kids",
+        "Biba"
+    ]
 }

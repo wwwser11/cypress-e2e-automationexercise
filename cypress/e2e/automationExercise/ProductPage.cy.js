@@ -71,5 +71,18 @@ describe('Automation Exercise Test Cases', () => {
             });
         });
     });    
+
+    it('Test Case 19: View & Cart Brand Products', () => {
+        cy.fixture('productNames').then((data) => {
+            const brandsList = data.brands;
+            brandsList.forEach((brand) => {
+                navigationMenu.clickProducts();
+                sideBar.verifyBrandsSideBarIsVisible()
+                    .clickBrandCategory(brand)
+
+                productPage.verifyAllProductsTitleContainsText("Brand", brand);
+            });
+        });
+    });
     
 });

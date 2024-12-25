@@ -43,12 +43,10 @@ class ProductPage {
         return this;
     }
 
-    verifyAllProductsTitleContainsText (sex, subcategory) {
-        this.getAllProductsTitile().should('have.text', `${sex} - ${subcategory} Products`);
+    verifyAllProductsTitleContainsText (category, subcategory) {
+        this.getAllProductsTitile().should('have.text', `${category} - ${subcategory} Products`);
         return this;
     }
-
-
 
 }
 
