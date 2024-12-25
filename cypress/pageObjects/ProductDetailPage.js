@@ -10,6 +10,12 @@ class ProductDetailPage {
     getAvailability = () => cy.get('.product-information p:nth-of-type(2)');
     getCondition = () => cy.get('.product-information p:nth-of-type(3)');
     getBrand = () => cy.get('.product-information p:nth-of-type(4)');
+    getWriteYourReviewSign = () => cy.get('.active [href="#reviews"]');
+    getReviewerNameField = () => cy.get('#review-form #name');
+    getReviewerEmailField = () => cy.get('#review-form #email');
+    getReviewField = () => cy.get('#review-form #review');
+    getSubmitReviewButton = () => cy.get('button#button-review');
+    getSuccessReviewMessage = () => cy.get('#review-section .alert-success')
 
     verifyQuantitySelectorVisible () {
         this.getQuantitySelector().should('be.visible');
@@ -18,6 +24,11 @@ class ProductDetailPage {
 
     verifyProductNameVisible () {
         this.getProductName().should('be.visible');
+        return this;
+    }
+
+    verifyReviewSignVisible () {
+        this.getWriteYourReviewSign().should('be.visible')
         return this;
     }
 
@@ -89,6 +100,14 @@ class ProductDetailPage {
     
     verifyBrandValue(expectedValue) {
         this.getBrand().should('contain.text', expectedValue);
+        return this;
+    }
+
+    fillAndSubmitReviewForm (name, email, review) {
+        this.getReviewerNameField().type(name)
+        this.getReviewerEmailField().type(email)
+        this.getReviewField().type(review)
+        this.getSubmitReviewButton().click()
         return this;
     }
     

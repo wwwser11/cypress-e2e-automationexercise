@@ -13,11 +13,16 @@ describe('Automation Exercise Test Cases', () => {
     const productDetailPage = new ProductDetailPage
     const sideBar = new SideBar
     let sexList = []
+    let reviewData;
+
 
     before(() => {
         cy.fixture('productNames').then((data) => {
             sexList = data.sex;
         });
+        cy.fixture('userData').then((data) => {
+            reviewData = data;
+        })
     });
 
     beforeEach(function () {
@@ -83,6 +88,22 @@ describe('Automation Exercise Test Cases', () => {
                 productPage.verifyAllProductsTitleContainsText("Brand", brand);
             });
         });
+    });
+
+    it('Test Case 21: Add review on product', () => {
+        const name = 'Ivan'
+        const email = 'www@g.com'
+        const review = 'Hi there'
+        navigationMenu.verifyHomeButtonHighlighted()
+            .clickProducts();
+        productPage.verifyAllProductsListVisible()
+            .clickFirstProductViewLink()
+        productDetailPage.verifyReviewSignVisible()
+            .fillAndSubmitReviewForm(reviewData.userName, reviewData.email, reviewData.review)
+
+        
+        
+        productDetailPage.getSuccessReviewMessage().should('be.visible')
     });
     
 });
