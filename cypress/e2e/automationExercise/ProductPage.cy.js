@@ -3,6 +3,7 @@ import NavigationMenu from '../../pageObjects/NavigationMenu';
 import HomePage from '../../pageObjects/HomePage';
 import ProductPage from '../../pageObjects/ProductPage';
 import ProductDetailPage from '../../pageObjects/ProductDetailPage';
+import SideBar from '../../pageObjects/SideBar';
 
 
 describe('Automation Exercise Test Cases', () => {
@@ -10,6 +11,14 @@ describe('Automation Exercise Test Cases', () => {
     const homePage = new HomePage();
     const productPage = new ProductPage();
     const productDetailPage = new ProductDetailPage
+    const sideBar = new SideBar
+    let sexList = []
+
+    before(() => {
+        cy.fixture('productNames').then((data) => {
+            sexList = data.sex;
+        });
+    });
 
     beforeEach(function () {
         cy.clearCookies();
@@ -26,27 +35,41 @@ describe('Automation Exercise Test Cases', () => {
         productDetailPage.verifyMainProductDetailPageElementsVisible();
     });
 
-    it.only('Test Case 9: Search Product', () => {
+    it('Test Case 9: Search Product', () => {
         navigationMenu.verifyHomeButtonHighlighted()
             .clickProducts();
         productPage.verifyAllProductsListVisible()
         cy.fixture('productNames').then((data) => {
             const productName = data.productsByName
             productName.forEach((name) => {
-            productPage.searchProduct(name)
-                .getProductList().each(($el, i) => {
+                productPage.searchProduct(name)
+                    .getProductList().each(($el, i) => {
                         cy.wrap($el)
-                        .find('p')
-                        .invoke('text')
-                        .then((text) => {
-                            expect(text).to.eq.name
-                        })
-                })
+                            .find('p')
+                            .invoke('text')
+                            .then((text) => {
+                                expect(text).to.eq.name
+                            })
+                    })
             })
         })
     });
 
-    it.only('Test Case 18: View Category Products', () =>{
-        
-    })
+    it('Test Case 18: View Category Products', () => {
+        cy.fixture('productNames').then((data) => {
+            const categories = data.categories;   
+            Object.keys(categories).forEach((categorySex) => {
+                Object.keys(categories[categorySex]).forEach((subCategoryName) => {
+    
+                    navigationMenu.clickProducts();
+                    sideBar.verifySideBarIsVisible()
+                        .clickCategory(categorySex) 
+                        .clickSubCategory(categorySex, subCategoryName); 
+    
+                    productPage.verifyAllProductsTitleContainsText(categorySex, subCategoryName);
+                });
+            });
+        });
+    });    
+    
 });

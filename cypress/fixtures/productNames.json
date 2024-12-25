@@ -11,11 +11,21 @@
         "Sleeves Printed Top - White",
         "Half Sleeves Top Schiffli Detailing - Pink"
     ],
-    "productsByCategory": [
-        "Top",
-        "Dress",
-        "Jeans",
-        "Tshirt",
-        "Saree"
-    ]
+
+    "categories": {
+        "Women": {
+            "Dress": [1],
+            "Tops": [2],
+            "Saree": [7]
+        },
+        "Men": {
+            "Tshirts": [3],
+            "Jeans": [6]
+        },
+        "Kids": {
+            "Tops & Shirts": [5],
+            "Dress": [4]
+        }
+    }
+        
 }

@@ -43,6 +43,11 @@ class ProductPage {
         return this;
     }
 
+    verifyAllProductsTitleContainsText (sex, subcategory) {
+        this.getAllProductsTitile().should('have.text', `${sex} - ${subcategory} Products`);
+        return this;
+    }
+
 
 
 }

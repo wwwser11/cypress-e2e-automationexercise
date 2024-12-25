@@ -1,12 +1,9 @@
 /// <reference types="cypress" />
 import NavigationMenu from '../../pageObjects/NavigationMenu';
-import SignUpLoginPage from '../../pageObjects/SignUpLoginPage';
-import RegistrationPage from '../../pageObjects/RegistrationPage';
 import ContactUsPage from '../../pageObjects/ContactUsPage';
 import HomePage from '../../pageObjects/HomePage';
 import FooterPage from '../../pageObjects/FooterPage';
 import { generateUniqueEmail } from '../../support/utils';
-import CartPage from '../../pageObjects/CartPage';
 
 
 describe('Automation Exercise Test Cases', () => {
@@ -14,7 +11,6 @@ describe('Automation Exercise Test Cases', () => {
     const homePage = new HomePage();
     const contactUsPage = new ContactUsPage();
     const footerPage = new FooterPage();
-    let signUpLoginPage;
     let email;
     let incorrectEmail;
     let userData;
