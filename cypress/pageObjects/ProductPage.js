@@ -6,11 +6,17 @@ class ProductPage {
     getAllProductsTitile = () => cy.get('.features_items h2.title')
     getAllProductsDiv = () => cy.get('.features_items')
     getAllProductsList = () => cy.get('.features_items .col-sm-4')
-    getFirstProductViewLink = () => cy.get('[href="/product_details/1"]')
     getProductSearchField = () => cy.get('#search_product')
     getSubmitSearchButton = () => cy.get('#submit_search')
     getProductList = () => cy.get('.features_items .col-sm-4')
     
+    getModalContinueShoppingButton = () => cy.get('button[data-dismiss="modal"]')
+    getModalViewCartButton = () => cy.get('.modal-body [href="/view_cart"]')
+    getProduct = (index) => cy.get('.col-sm-4 .productinfo').eq(index) 
+    //getProductName = (index) => cy.get('.col-sm-4 .productinfo p').eq(index)
+    getProductName = (index) => cy.get('.col-sm-4 .productinfo p').eq(index).invoke('text');
+    getProductAddToCartButton = (index) => cy.get('.col-sm-4 .productinfo').eq(index).find('.add-to-cart')
+
 
     verifyAllProductsTitileVisible () {
         this.getAllProductsTitile().should('be.visible');
@@ -20,11 +26,6 @@ class ProductPage {
     verifyAllProductsListVisible () {
         this.getAllProductsList().should('be.visible');
         return this;
-    }
-
-    clickFirstProductViewLink () {
-        this.getFirstProductViewLink().click();
-        return new ProductDetailPage;
     }
 
     clickSubmitSearchButton () {
@@ -45,6 +46,22 @@ class ProductPage {
 
     verifyAllProductsTitleContainsText (category, subcategory) {
         this.getAllProductsTitile().should('have.text', `${category} - ${subcategory} Products`);
+        return this;
+    }
+
+    clickModalContinueShoppingButton (){
+        this.getModalContinueShoppingButton().click();
+        return this;
+    }
+
+    clickModalViewCartButton () {
+        this.getModalViewCartButton().click();
+        return this;
+    }
+
+    addProductToCart (index) {
+        this.getProduct(index).realHover();
+        this.getProductAddToCartButton(index).click();
         return this;
     }
 

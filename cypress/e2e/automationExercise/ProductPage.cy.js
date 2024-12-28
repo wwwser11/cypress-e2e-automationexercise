@@ -91,9 +91,6 @@ describe('Automation Exercise Test Cases', () => {
     });
 
     it('Test Case 21: Add review on product', () => {
-        const name = 'Ivan'
-        const email = 'www@g.com'
-        const review = 'Hi there'
         navigationMenu.verifyHomeButtonHighlighted()
             .clickProducts();
         productPage.verifyAllProductsListVisible()
@@ -101,8 +98,6 @@ describe('Automation Exercise Test Cases', () => {
         productDetailPage.verifyReviewSignVisible()
             .fillAndSubmitReviewForm(reviewData.userName, reviewData.email, reviewData.review)
 
-        
-        
         productDetailPage.getSuccessReviewMessage().should('be.visible')
     });
     
