@@ -56,11 +56,8 @@ describe('Automation Exercise Test Cases', () => {
                 cy.log('cart products validation')
                 cy.get('@firstProductName').then((firstName) => {
                     cy.get('@secondProductName').then((secondName) => {
-                        console.log(cartPage.getShoppingList())
-                        cartPage.getShoppingList().then(($products) => {
+                        cartPage.getShoppingListNames().then(($products) => {
                             const productsArr = $products.toArray().map(el => el.innerText.trim());
-                            cy.log(productsArr)
-                            cy.log(firstName, secondName)
 
 
                             expect(productsArr).to.have.all.members([firstName, secondName]);
@@ -87,12 +84,45 @@ describe('Automation Exercise Test Cases', () => {
                 .clickAddToCartButton()
                 .clickModalViewCartButton()
 
+
             cartPage.getProductQtyText().then((cartQty) => {
                 expect(cartQty).to.equal(randomQty.toString());
             });
-
         });
-
     });
+
+    it('Test Case 17: Remove Products From Cart', function () {
+        cy.get('@firstProductIndex').then((firstIndex) => {
+            cy.get('@secondProductIndex').then((secondIndex) => {
+                navigationMenu.verifyHomeButtonHighlighted()
+                    .clickProducts();
+
+                cy.log('acting with the 1st prod: add to the cart + save the name')
+                productPage.verifyAllProductsListVisible();
+                productPage.getProductName(firstIndex).then((name) => {
+                    cy.wrap(name).as('firstProductName');
+                });
+                productPage.addProductToCart(firstIndex)
+                    .clickModalContinueShoppingButton();
+
+                cy.log('acting with the 2nd prod: add to the cart + save the name')
+                productPage.verifyAllProductsListVisible();
+                productPage.getProductName(secondIndex).then((name) => {
+                    cy.wrap(name).as('secondProductName');
+                });
+                productPage.addProductToCart(secondIndex);
+                productPage.clickModalViewCartButton();
+
+                //проверить что этого элемента с именем el больше нет  в корзине 
+                cy.get('@firstProductName').then((prodName) => {
+                    cy.log(`Removing product: ${prodName}`);
+                    cartPage.deleteProductBasedOnName(prodName)
+
+
+                    cartPage.getListProductNames().should('not.contain', prodName);
+                });
+            });
+        });
+    })
 
 });
