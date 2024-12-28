@@ -3,6 +3,7 @@
 import CartPage from '../../pageObjects/CartPage';
 import HomePage from '../../pageObjects/HomePage';
 import NavigationMenu from '../../pageObjects/NavigationMenu';
+import ProductDetailPage from '../../pageObjects/ProductDetailPage';
 import ProductPage from '../../pageObjects/ProductPage';
 
 describe('Automation Exercise Test Cases', () => {
@@ -10,12 +11,13 @@ describe('Automation Exercise Test Cases', () => {
     const navigationMenu = new NavigationMenu();
     const productPage = new ProductPage();
     const cartPage = new CartPage();
+    const productDetailPage = new ProductDetailPage();
 
     beforeEach(() => { 
         cy.clearCookies();
         cy.clearLocalStorage();
         homePage.navigateToHome();
-        cy.log('define two products for tests')
+        cy.log('define two products id for tests')
         productPage.getProductList().then(($products) => {
             const firstProductIndex = Cypress._.random(0, $products.length - 1);
             let secondProductIndex = Cypress._.random(0, $products.length - 1);
@@ -27,15 +29,9 @@ describe('Automation Exercise Test Cases', () => {
             cy.wrap(firstProductIndex).as('firstProductIndex');
             cy.wrap(secondProductIndex).as('secondProductIndex');
         });
-        
-        cy.get('@firstProductIndex').then((firstIndex) => {
-            cy.get('@secondProductIndex').then((secondIndex) => {
-                cy.log(`Defined two products for tests: ${firstIndex}, ${secondIndex}`);
-            });
-        });
     });
 
-    it('Test Case 12: Add Products in Cart2', function () {
+    it('Test Case 12: Add Products in Cart', function () {
         cy.get('@firstProductIndex').then((firstIndex) => {
             cy.get('@secondProductIndex').then((secondIndex) => {
                 navigationMenu.verifyHomeButtonHighlighted()
@@ -73,6 +69,30 @@ describe('Automation Exercise Test Cases', () => {
                 });
             });
         });
+    });
+
+    it('Test Case 13: Verify Product quantity in Cart', function () {
+        cy.get('@firstProductIndex').then((firstIndex) => {
+            const randomQty = Cypress._.random(1, 10); 
+            cy.log(`Generated Item Quantity for Cart adding: ${randomQty}`);
+
+            navigationMenu.verifyHomeButtonHighlighted();
+            cy.log('acting with the prod: add to the cart + save the name + save qty')
+            homePage.getProductName(firstIndex).then((name) => {
+                cy.wrap(name).as('firstProductName');
+            });
+            homePage.clickViewProduct(firstIndex)
+            productDetailPage.verifyReviewSignVisible()
+                .setProductQty(randomQty)
+                .clickAddToCartButton()
+                .clickModalViewCartButton()
+
+            cartPage.getProductQtyText().then((cartQty) => {
+                expect(cartQty).to.equal(randomQty.toString());
+            });
+
+        });
+
     });
 
 });

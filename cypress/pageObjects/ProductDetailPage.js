@@ -1,6 +1,6 @@
-import ProductPage from "./ProductPage"
+import ProductPage from './ProductPage';
 
-class ProductDetailPage {
+class ProductDetailPage extends ProductPage{
     
     //ProductDetailUrl = `https://automationexercise.com/product_details/${}`
     getQuantitySelector = () => cy.get('input#quantity')
@@ -16,6 +16,7 @@ class ProductDetailPage {
     getReviewField = () => cy.get('#review-form #review');
     getSubmitReviewButton = () => cy.get('button#button-review');
     getSuccessReviewMessage = () => cy.get('#review-section .alert-success')
+    getAddToCartButton = () => cy.get('button.cart');
 
     verifyQuantitySelectorVisible () {
         this.getQuantitySelector().should('be.visible');
@@ -108,6 +109,16 @@ class ProductDetailPage {
         this.getReviewerEmailField().type(email)
         this.getReviewField().type(review)
         this.getSubmitReviewButton().click()
+        return this;
+    }
+    
+    setProductQty(quantity) {
+        this.getQuantitySelector().clear().type(quantity);
+        return this;
+    }
+
+    clickAddToCartButton () {
+        this.getAddToCartButton().click();
         return this;
     }
     

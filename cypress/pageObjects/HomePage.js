@@ -1,5 +1,6 @@
+import ProductPage from './ProductPage';
 
-class HomePage {
+class HomePage extends ProductPage{
     baseUrl = 'https://automationexercise.com';
     getLoggedInAsText = () => cy.get('.navbar-nav li:last-child a');
 

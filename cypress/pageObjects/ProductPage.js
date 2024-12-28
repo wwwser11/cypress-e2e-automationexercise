@@ -1,4 +1,3 @@
-import ProductDetailPage from "./ProductDetailPage"
 
 class ProductPage {
 
@@ -9,13 +8,14 @@ class ProductPage {
     getProductSearchField = () => cy.get('#search_product')
     getSubmitSearchButton = () => cy.get('#submit_search')
     getProductList = () => cy.get('.features_items .col-sm-4')
-    
     getModalContinueShoppingButton = () => cy.get('button[data-dismiss="modal"]')
     getModalViewCartButton = () => cy.get('.modal-body [href="/view_cart"]')
     getProduct = (index) => cy.get('.col-sm-4 .productinfo').eq(index) 
-    //getProductName = (index) => cy.get('.col-sm-4 .productinfo p').eq(index)
     getProductName = (index) => cy.get('.col-sm-4 .productinfo p').eq(index).invoke('text');
     getProductAddToCartButton = (index) => cy.get('.col-sm-4 .productinfo').eq(index).find('.add-to-cart')
+
+    getViewProductlink = (index) => cy.get('.choose .nav').eq(index)
+
 
 
     verifyAllProductsTitileVisible () {
@@ -62,6 +62,11 @@ class ProductPage {
     addProductToCart (index) {
         this.getProduct(index).realHover();
         this.getProductAddToCartButton(index).click();
+        return this;
+    }
+
+    clickViewProduct (index) {
+        this.getViewProductlink(index).click()
         return this;
     }
 
