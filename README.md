@@ -1,28 +1,44 @@
-## AutomationExercise Testing Project
+## AutomationExercise Testing Framework with Cypress
 
-This repository contains automated test scripts for AutomationExercise, a practice website for QA engineers to enhance their skills in automation and API testing.
+This repository contains a **Cypress-based testing framework** for **AutomationExercise**, a practice website designed to help QA engineers improve their skills in **UI automation** and **API testing**.
 
 ---
 
 ## Project Overview
 
-The goal of this project is to develop automated tests for the key functionalities of the AutomationExercise website. Test cases are structured within the repository and automated using the Cypress testing framework.
+The primary objective of this project is to **automate test cases** for the core functionalities of the **AutomationExercise** website. The framework is built using **Cypress**, providing a scalable structure for **end-to-end testing**.
+
+The tests cover scenarios such as:
+- **User registration and login/logout.**  
+- **Adding and removing products from the cart.**  
+- **Searching for products and verifying results.**  
+- **Testing cart persistence after login.**  
+
+This project also serves as a foundation for building advanced automation skills using Cypress.
 
 ---
 
-## Key Components
+## Test Environment
 
-- **Test Cases**: Detailed test cases for various features of the AutomationExercise website.
-- **Automated Tests**: Cypress-based scripts that automate the execution of test cases, covering UI interactions and validations.
-- **Page Object Model (POM)**: Organized classes representing individual pages of the website to enhance test structure and maintainability.
+- **Framework:** Cypress – UI and API test automation.  
+- **Language:** JavaScript – Core scripting language.  
+- **Test Website:** [AutomationExercise](https://automationexercise.com)  
+
+---
+
+## Key Features
+
+- **Test Cases** – Automated scenarios validating website functionality.  
+- **Page Object Model (POM)** – Structured classes for page elements and actions.  
+- **Scalability** – Easy test maintenance and expansion.  
 
 ---
 
 ## Tools and Frameworks
 
-- **Cypress**: Primary testing framework for automating UI and API tests.
-- **JavaScript**: The main scripting language for Cypress tests.
-- **Page Object Classes**: Encapsulated page-related logic and locators.
+- **Cypress** – End-to-end testing framework.  
+- **JavaScript** – Language for scripting test logic.  
+- **POM Design Pattern** – Organized test structure for maintainability.  
 
 ---
 
