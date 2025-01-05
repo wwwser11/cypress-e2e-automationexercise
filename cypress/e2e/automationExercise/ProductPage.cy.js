@@ -12,14 +12,10 @@ describe('Automation Exercise Test Cases', () => {
     const productPage = new ProductPage();
     const productDetailPage = new ProductDetailPage
     const sideBar = new SideBar
-    let sexList = []
     let reviewData;
 
 
     before(() => {
-        cy.fixture('productNames').then((data) => {
-            sexList = data.sex;
-        });
         cy.fixture('userData').then((data) => {
             reviewData = data;
         })
