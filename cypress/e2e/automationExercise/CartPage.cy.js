@@ -5,6 +5,8 @@ import HomePage from '../../pageObjects/HomePage';
 import NavigationMenu from '../../pageObjects/NavigationMenu';
 import ProductDetailPage from '../../pageObjects/ProductDetailPage';
 import ProductPage from '../../pageObjects/ProductPage';
+import SignUpLoginPage from '../../pageObjects/SignUpLoginPage';
+import { generateUniqueEmail } from '../../support/utils';
 
 describe('Automation Exercise Test Cases', () => {
     const homePage = new HomePage();
@@ -12,8 +14,27 @@ describe('Automation Exercise Test Cases', () => {
     const productPage = new ProductPage();
     const cartPage = new CartPage();
     const productDetailPage = new ProductDetailPage();
+    const signUpLoginPage = new SignUpLoginPage();
+    let userData;
+    let address;
+    let email;
 
-    beforeEach(() => { 
+    before(() => {
+        cy.fixture('userData').then((data) => {
+            userData = data;
+        });
+
+        cy.fixture('userAdress').then((data) => {
+            address = data;
+            cy.log('Loaded userData:', userData);
+        });
+
+        cy.then(() => {
+            email = generateUniqueEmail();
+        });
+    });
+
+    beforeEach(function () {
         cy.clearCookies();
         cy.clearLocalStorage();
         homePage.navigateToHome();
@@ -29,6 +50,19 @@ describe('Automation Exercise Test Cases', () => {
             cy.wrap(firstProductIndex).as('firstProductIndex');
             cy.wrap(secondProductIndex).as('secondProductIndex');
         });
+
+        if (this.currentTest.title == 'Test Case 20: Search Products and Verify Cart After Login') {
+            navigationMenu.clickSignupLogin();
+            signUpLoginPage
+                .fillSignupForm(userData.userName, email)
+                .clickSignupButton()
+                .fillAccountInformation(userData.password)
+                .fillAddressDetails(address)
+                .clickCreateAccountBtn()
+                .clickRegContinueButton();
+            navigationMenu.clickLogout();
+            homePage.navigateToHome();
+        }
     });
 
     it('Test Case 12: Add Products in Cart', function () {
@@ -70,7 +104,7 @@ describe('Automation Exercise Test Cases', () => {
 
     it('Test Case 13: Verify Product quantity in Cart', function () {
         cy.get('@firstProductIndex').then((firstIndex) => {
-            const randomQty = Cypress._.random(1, 10); 
+            const randomQty = Cypress._.random(1, 10);
             cy.log(`Generated Item Quantity for Cart adding: ${randomQty}`);
 
             navigationMenu.verifyHomeButtonHighlighted();
@@ -123,6 +157,35 @@ describe('Automation Exercise Test Cases', () => {
                 });
             });
         });
+    })
+
+    it('Test Case 20: Search Products and Verify Cart After Login', function () {
+        navigationMenu.verifyHomeButtonHighlighted()
+            .clickProducts();
+        productPage.verifyAllProductsListVisible()
+        cy.fixture('productNames').then((data) => {
+            const productName = Cypress._.sample(data.productsByName);
+            productPage.searchProduct(productName)
+                .getProductList().each(($el) => {
+                    cy.wrap($el)
+                        .find('p').first()
+                        .invoke('text')
+                        .then((text) => {
+                            expect(text).to.eq(productName)
+                        })
+                    cy.wrap($el)
+                        .find(productPage.productAddToCartButton).first().click()
+                })
+            productPage.clickModalViewCartButton()
+            navigationMenu.clickSignupLogin()
+            signUpLoginPage
+                .fillLoginForm(email, userData.password)
+                .clickLoginButton();
+            navigationMenu.clickCart();
+
+
+            cartPage.getFirstProductName().should('have.text', productName)
+        })
     })
 
 });

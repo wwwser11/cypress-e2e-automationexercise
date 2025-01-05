@@ -6,7 +6,7 @@ class CartPage {
     getProductQty = () => cy.get('tbody .cart_quantity')
     getListProductNames = () => cy.get('.cart_description h4 a')
     getDeleteButton = () => cy.get('.cart_quantity_delete')
-
+    getFirstProductName = () => cy.get('tbody h4')
 
     verifyCartInfoTableVisible () {
         this.getCartInfoTable().should('be.visible');

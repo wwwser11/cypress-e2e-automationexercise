@@ -5,7 +5,7 @@ class ProductPage {
     getAllProductsTitile = () => cy.get('.features_items h2.title')
     getAllProductsDiv = () => cy.get('.features_items')
     getAllProductsList = () => cy.get('.features_items .col-sm-4')
-    getProductSearchField = () => cy.get('#search_product')
+    getProductSearchField = () => cy.get('input#search_product')
     getFirstProductViewLink = () => cy.get('[href="/product_details/1"]')
     getSubmitSearchButton = () => cy.get('#submit_search')
     getProductList = () => cy.get('.features_items .col-sm-4')
@@ -14,8 +14,9 @@ class ProductPage {
     getProduct = (index) => cy.get('.col-sm-4 .productinfo').eq(index) 
     getProductName = (index) => cy.get('.col-sm-4 .productinfo p').eq(index).invoke('text');
     getProductAddToCartButton = (index) => cy.get('.col-sm-4 .productinfo').eq(index).find('.add-to-cart')
-
     getViewProductlink = (index) => cy.get('.choose .nav').eq(index)
+    productAddToCartButton = 'a.add-to-cart'
+    modalViewCartButton = '.modal-body [href="/view_cart"]'
 
 
 
