@@ -11,71 +11,82 @@ class ProductPage {
     getProductList = () => cy.get('.features_items .col-sm-4')
     getModalContinueShoppingButton = () => cy.get('button[data-dismiss="modal"]')
     getModalViewCartButton = () => cy.get('.modal-body [href="/view_cart"]')
-    getProduct = (index) => cy.get('.col-sm-4 .productinfo').eq(index) 
+    getProduct = (index) => cy.get('.col-sm-4 .productinfo').eq(index)
     getProductName = (index) => cy.get('.col-sm-4 .productinfo p').eq(index).invoke('text');
     getProductAddToCartButton = (index) => cy.get('.col-sm-4 .productinfo').eq(index).find('.add-to-cart')
     getViewProductlink = (index) => cy.get('.choose .nav').eq(index)
+    getRecommendedItemsList = () => cy.get('#recommended-item-carousel')
+    getRecommendedActiveItemsList = () => cy.get('#recommended-item-carousel .item.active .col-sm-4')
     productAddToCartButton = 'a.add-to-cart'
     modalViewCartButton = '.modal-body [href="/view_cart"]'
+    //locators for recomended section:
+    getRecItemName = () => cy.get('p')
+    getRecItemAddToCartButton = () => cy.get('a')
 
 
 
-    verifyAllProductsTitileVisible () {
+    verifyAllProductsTitileVisible() {
         this.getAllProductsTitile().should('be.visible');
         return this;
     }
 
-    clickFirstProductViewLink () {
-        this.getFirstProductViewLink().click();
-        return this;
-    }
-
-    verifyAllProductsListVisible () {
-        this.getAllProductsList().should('be.visible');
-        return this;
-    }
-
-    clickSubmitSearchButton () {
-        this.getSubmitSearchButton().click();
-        return this;
-    }
-
-    fillProductSearchField (product) {
-        this.getProductSearchField().clear().type(product);
-        return this;
-    }
-
-    searchProduct(product){
-        this.fillProductSearchField(product)
-        this.clickSubmitSearchButton()
-        return this;
-    }
-
-    verifyAllProductsTitleContainsText (category, subcategory) {
+    verifyAllProductsTitleContainsText(category, subcategory) {
         this.getAllProductsTitile().should('have.text', `${category} - ${subcategory} Products`);
         return this;
     }
 
-    clickModalContinueShoppingButton (){
+    verifyAllProductsListVisible() {
+        this.getAllProductsList().should('be.visible');
+        return this;
+    }
+
+    verifyRecommendedItemsListVisible() {
+        this.getRecommendedItemsList().should('be.visible');
+        return this;
+    }
+
+    clickModalContinueShoppingButton() {
         this.getModalContinueShoppingButton().click();
         return this;
     }
 
-    clickModalViewCartButton () {
+    clickModalViewCartButton() {
         this.getModalViewCartButton().click();
         return this;
     }
 
-    addProductToCart (index) {
+    clickSubmitSearchButton() {
+        this.getSubmitSearchButton().click();
+        return this;
+    }
+
+    clickViewProduct(index) {
+        this.getViewProductlink(index).click()
+        return this;
+    }
+
+    clickFirstProductViewLink() {
+        this.getFirstProductViewLink().click();
+        return this;
+    }
+
+    fillProductSearchField(product) {
+        this.getProductSearchField().clear().type(product);
+        return this;
+    }
+
+    addProductToCart(index) {
         this.getProduct(index).realHover();
         this.getProductAddToCartButton(index).click();
         return this;
     }
 
-    clickViewProduct (index) {
-        this.getViewProductlink(index).click()
+    searchProduct(product) {
+        this.fillProductSearchField(product)
+        this.clickSubmitSearchButton()
         return this;
     }
+
 
 }
 

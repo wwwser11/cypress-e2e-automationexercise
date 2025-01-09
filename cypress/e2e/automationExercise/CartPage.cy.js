@@ -188,4 +188,33 @@ describe('Automation Exercise Test Cases', () => {
         })
     })
 
+    it('Test Case 22: Add to cart from Recommended items', function () {
+        homePage.verifyRecommendedItemsListVisible();
+        productPage.getRecommendedActiveItemsList()
+            .then(($products) => {
+                const randomIndex = Cypress._.random(0, $products.length - 1);
+                const ourProduct = $products.eq(randomIndex);
+
+                cy.wrap(ourProduct)
+                    .within(() => {
+                        productPage.getRecItemName()
+                            .invoke('text')
+                            .then((title) => {
+                                cy.log(`Selected the following product: ${title}`);
+                                cy.wrap(title).as('productName');
+                            });
+
+                        productPage.getRecItemAddToCartButton().click()
+                    });
+                productPage.clickModalViewCartButton();
+                
+
+                cy.get('@productName').then((productName) => {
+                    cartPage.getFirstProductName().invoke('text').then((cartProductName) => {
+                        expect(cartProductName.trim()).to.equal(productName.trim());
+                    });
+                });
+
+            })
+    })
 });
