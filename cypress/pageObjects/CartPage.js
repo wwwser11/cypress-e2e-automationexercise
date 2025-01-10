@@ -7,9 +7,11 @@ class CartPage {
     getListProductNames = () => cy.get('.cart_description h4 a')
     getDeleteButton = () => cy.get('.cart_quantity_delete')
     getFirstProductName = () => cy.get('tbody h4')
+    getProceedToCheckoutButton = () => cy.get('a.check_out')
 
     verifyCartInfoTableVisible () {
         this.getCartInfoTable().should('be.visible');
+        return this;
     }
     
     getProductQtyText = () => {
@@ -27,6 +29,11 @@ class CartPage {
         this.getListProductNames().contains(prodName).parents('tr').within(() => {
             this.getDeleteButton().click(); 
         });
+        return this;
+    }
+
+    clickProceedToCheckoutButton() {
+        this.getProceedToCheckoutButton().click();
         return this;
     }
 
