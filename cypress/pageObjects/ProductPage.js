@@ -7,6 +7,7 @@ class ProductPage {
     getAllProductsList = () => cy.get('.features_items .col-sm-4')
     getProductSearchField = () => cy.get('input#search_product')
     getFirstProductViewLink = () => cy.get('[href="/product_details/1"]')
+    getFirstProductAddtoCartButton = () => cy.get('a[data-product-id="1"].add-to-cart').first();
     getSubmitSearchButton = () => cy.get('#submit_search')
     getProductList = () => cy.get('.features_items .col-sm-4')
     getModalContinueShoppingButton = () => cy.get('button[data-dismiss="modal"]')
@@ -67,6 +68,11 @@ class ProductPage {
 
     clickFirstProductViewLink() {
         this.getFirstProductViewLink().click();
+        return this;
+    }
+
+    addFirstProductToCart() {
+        this.getFirstProductAddtoCartButton().click()
         return this;
     }
 
