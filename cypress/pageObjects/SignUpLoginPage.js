@@ -1,5 +1,6 @@
 import RegistrationPage from './RegistrationPage';
 import HomePage from './HomePage';
+import NavigationMenu from './NavigationMenu';
 
 
 class SignUpLoginPage {
@@ -67,6 +68,18 @@ class SignUpLoginPage {
             .should('be.visible')
             .should('have.text', 'Your email or password is incorrect!');
         return this;
+    }
+
+    registerNewUser(userData, address, email) {
+        const navigationMenu = new NavigationMenu;
+        navigationMenu.clickSignupLogin();
+        this
+            .fillSignupForm(userData.userName, email)
+            .clickSignupButton()
+            .fillAccountInformation(userData.password)
+            .fillAddressDetails(address)
+            .clickCreateAccountBtn()
+            .clickRegContinueButton();
     }
 }
 
