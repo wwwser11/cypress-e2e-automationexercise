@@ -22,7 +22,7 @@ describe('Automation Exercise Test Cases', () => {
             userData = data;
         });
 
-        cy.fixture('userAdress').then((data) => {
+        cy.fixture('userAddress').then((data) => {
             address = data;
             cy.log('Loaded userData:', userData);
         });
