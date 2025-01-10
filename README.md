@@ -48,7 +48,7 @@ The test cases for AutomationExercise are organized into logical groups based on
 
 ---
 
-### **1. Authentication Tests (`SignUpLoginPage.cy.js`)**
+### **1. Authentication Tests **
 **Page Object:** `SignUpLoginPage.js`  
 - **Test Case 1**: Register User  
 - **Test Case 2**: Login User with correct email and password  
@@ -58,7 +58,7 @@ The test cases for AutomationExercise are organized into logical groups based on
 
 ---
 
-### **2. Contact and Subscription Tests (`ContactUsPage.cy.js`)**
+### **2. Contact and Subscription Tests**
 **Page Object:** `ContactUsPage.js` and `FooterPage.js`  
 - **Test Case 6**: Contact Us Form  
 - **Test Case 10**: Verify Subscription on home page  
@@ -66,7 +66,7 @@ The test cases for AutomationExercise are organized into logical groups based on
 
 ---
 
-### **3. Product Tests (`ProductPage.cy.js`)**
+### **3. Product Tests**
 **Page Object:** `ProductPage.js`  
 - **Test Case 8**: Verify All Products and product detail page  
 - **Test Case 9**: Search Product  
@@ -78,7 +78,7 @@ The test cases for AutomationExercise are organized into logical groups based on
 
 ---
 
-### **4. Cart and Checkout Tests (`CartPage.cy.js`)**
+### **4. Cart and Checkout Tests**
 **Page Object:** `CartPage.js`  
 - **Test Case 12**: Add Products in Cart  
 - **Test Case 13**: Verify Product quantity in Cart  
@@ -86,7 +86,7 @@ The test cases for AutomationExercise are organized into logical groups based on
 - **Test Case 20**: Search Products and Verify Cart After Login  
 - **Test Case 22**: Add to cart from Recommended items  
 
-**Page Object:** `RegistrationPage.js`  
+**Page Object:** `CheckoutPage.js`  
 - **Test Case 14**: Place Order: Register while Checkout  
 - **Test Case 15**: Place Order: Register before Checkout  
 - **Test Case 16**: Place Order: Login before Checkout  
@@ -97,22 +97,29 @@ The test cases for AutomationExercise are organized into logical groups based on
 
 ---
 
-### **5. UI Functionality Tests (`UiFunctionality.cy.js`)**
+### **5. UI Functionality Tests**
 **Page Object:** `NavigationMenu.js`  
 - **Test Case 25**: Verify Scroll Up using 'Arrow' button and Scroll Down functionality  
 - **Test Case 26**: Verify Scroll Up without 'Arrow' button and Scroll Down functionality  
 
 ---
 
-### **6. Test Cases Page (`TestCasesPage.cy.js`)**
+### **6. Test Cases Page**
 **Page Object:** `HomePage.js`  
 - **Test Case 7**: Verify Test Cases Page  
 
 ---
+## Important Note
 
+The test cases implemented in this repository are taken from the AutomationExercise website. While they serve as a great starting point for practicing automation, I do not consider them a reflection of industry best practices. Specifically, combining multiple validations in a single test case is not an approach I would adopt in a professional environment.
+The purpose of this repository is to showcase automation skills and familiarity with Cypress, rather than to design test cases.
+
+---
 ## Page Object Classes
 
 To maintain scalability and improve test readability, the project uses the Page Object Model (POM). Each page of the AutomationExercise website is represented as a class encapsulating its locators and actions.
+
+---
 
 ### Available Page Object Classes
 To ensure scalability and maintainability, this project uses the Page Object Model (POM). Each page of the AutomationExercise website is represented as a class encapsulating its locators and actions.
