@@ -26,7 +26,6 @@ class RegistrationPage {
 
     // Methods
     fillAccountInformation(password) {
-        this.getGenderFemaleRadio().click();
         this.getPasswordInput().type(password);
         this.getDayDropdown().select('1');
         this.getMonthDropdown().select('1');
