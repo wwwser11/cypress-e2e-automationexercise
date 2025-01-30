@@ -9,6 +9,11 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
+            sh 'export PATH=$PATH:/usr/local/bin/npm && npm install'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
                 sh 'npm install'
             }
         }
