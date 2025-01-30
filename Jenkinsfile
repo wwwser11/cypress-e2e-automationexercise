@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-repo.git'
+                git branch: 'main', url: 'https://github.com/wwwser11/cypress-e2e-automationexercise.git'
             }
         }
         stage('Install Dependencies') {
